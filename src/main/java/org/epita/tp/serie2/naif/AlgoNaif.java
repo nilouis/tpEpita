@@ -8,9 +8,11 @@ public class AlgoNaif {
     private /*final*/ boolean[][] plateau;
 
     public AlgoNaif(int taillePlateau) {
+        this.plateau=new boolean[taillePlateau][taillePlateau];
     }
 
     public AlgoNaif(boolean[][] plateau) {
+        this.plateau=plateau;
     }
 
     public boolean[][] getPlateau() {
@@ -30,10 +32,36 @@ public class AlgoNaif {
     }
 
     public boolean verifierColonne(int colonne) {
+        boolean uneDameTrouvee = false;
+        boolean[][] maLigneDeBoolean = this.getPlateau();
+        int tailleMaLigne = maLigneDeBoolean.length;
+
+        for (int i = 0; i < tailleMaLigne; i++) {
+            System.out.println(maLigneDeBoolean[i][colonne]);
+            if (maLigneDeBoolean[i][colonne] == true) {
+                if (uneDameTrouvee == true) {
+                    return false;
+                }
+                uneDameTrouvee = true;
+            }
+        }
+
         return true;
     }
 
     public boolean verifierLigne(int ligne) {
+
+        boolean uneDameTrouvee = false;
+        boolean[] maLigneDeBoolean = this.getPlateau()[ligne];
+        int tailleMaLigne = maLigneDeBoolean.length;
+        for (int i = 0; i < tailleMaLigne; i++) {
+            if (maLigneDeBoolean[i] == true) {
+                if (uneDameTrouvee == true) {
+                    return false;
+                }
+                uneDameTrouvee = true;
+            }
+        }
         return true;
     }
 
@@ -46,7 +74,10 @@ public class AlgoNaif {
     }
 
     public static boolean[][] copierPlateau(boolean [][] plateau) {
-        return null;
+       boolean[][] copieDuTableau ;
+       copieDuTableau=plateau.clone() ;
+
+        return copieDuTableau;
     }
 
     public static String plateauToString(boolean[][] plateau){
@@ -55,7 +86,22 @@ public class AlgoNaif {
 
     @Override
     public String toString() {
-        return "";
-    }
+        String maGrille="  0 1 2 3\n";
+        boolean[][] monPlateau=this.getPlateau();
+        boolean aUneDame;
+        int tailleTableau=monPlateau.length;
 
+        for(int ligne=0;ligne<tailleTableau-1;ligne++){
+            maGrille=maGrille + ligne + " ";
+            for(int colonne=0;colonne<tailleTableau-1;colonne++){
+                aUneDame=monPlateau[ligne][colonne];
+                if(aUneDame){maGrille=maGrille+"X ";}
+                else{maGrille=maGrille+"  ";}
+            }
+            maGrille=maGrille+"\n";
+        }
+        return maGrille;
+    }
 }
+
+
